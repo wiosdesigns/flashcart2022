@@ -1,6 +1,7 @@
 ---
 layout: blog
 name: Tomato
+price: 20
 description: |-
   Fresh tomatoes straight from the farm
 

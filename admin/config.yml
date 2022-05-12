@@ -6,12 +6,12 @@ publish_mode: editorial_workflow
 media_folder: "uploads"
 collections:
   - name: "sku"
-  - label: "SKUs"
-  - folder: "_data/skus"
-  - create: true
-  - identifier_field: "name"
-  - slug: "{{slug}}"
-  - fields:
+    label: "SKUs"
+    folder: "_data/skus"
+    create: true
+    identifier_field: "name"
+    slug: "{{slug}}"
+    fields:
      - {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
      - {label: "Name", name: "name", widget: "string"}
      - {label: "Description", name: "description", widget: "text"}

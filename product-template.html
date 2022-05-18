@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+  <title>{{sku["name"]}} on FlashCart</title>
+  <meta property="og:title" content="{{sku['name']}} on FlashCart" />
+  <meta name="twitter:title" content="{{sku['name']}} on FlashCart" />
+  
+  <meta name="description" content="{{sku['description']}}">
+  <meta property="og:description" content="{{sku['description']}}">
+  <meta name="twitter:description" content="{{sku['description']}}">
+  
+  <meta property="og:url" content="https://flashcart.wios.xyz/product/{{sku['slug']}}" />
+  
+  <meta property="og:image" content="{{sku['image']}}">
+  <meta property="twitter:image" content="{{sku['image']}}">
+  <meta name="twitter:image:alt" content="{{sku['image']}}">
+  
+  <link rel="shortcut icon" href="/assets/favicon.png"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1d201d">
+  
+  <link rel="stylesheet" href="/css/main.css" />
+  
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "{{sku['name']}}",
+      "image": ["{{sku['image']}}"],
+      "description": "{{sku['description']}}",
+      "sku": "fl{{sku['slug']}}",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "INR",
+        "price": "{{sku['price']}}",
+        "availability": "https://schema.org/InStock"
+      }
+    }
+  </script>
+  
+</head>
+<body>
+<div id="app">
+  
+  <header>
+    <a href="/">
+      <img src="/assets/logo.svg"/>
+      <span>FlashCart</span>
+    </a>
+  </header>
+  
+  <main id="product">
+    <div class="sku-card full">
+      <img src="{{sku['image']}}" />
+      <div>
+        <h3>{{sku["name"]}}</h3>
+        <p>{{sku["description"]}}</p>
+        <div class="price">
+          <b>₹</b>
+          <span>{{sku["price"]}}</span>
+        </div>
+        <div class="cartcontrol">
+          <a href="/#addtocart/{{sku['slug']}}">
+            + Add
+          </a>
+        </div>
+      </div> 
+    </div>   
+  </main>
+
+</div>
+</body>
+

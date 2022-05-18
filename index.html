@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+  <title>FlashCart</title>
+  <meta property="og:title" content="FlashCart" />
+  <meta name="twitter:title" content="FlashCart" />
+  
+  <meta name="description" content="Shopping Site Template for WhatsApp Ordering">
+  <meta property="og:description" content="Shopping Site Template for WhatsApp Ordering">
+  <meta name="twitter:description" content="Shopping Site Template for WhatsApp Ordering">
+  
+  <meta property="og:url" content="https://flashcart.wios.xyz" />
+  
+  <meta property="og:image" content="/assets/dp.png">
+  <meta property="twitter:image" content="/assets/dp.png">
+  <meta name="twitter:image:alt" content="Background Image">
+  
+  <link rel="shortcut icon" href="/assets/favicon.png"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="theme-color" content="#1d201d">
+  
+  <link rel="stylesheet" href="/css/main.css" />
+  <script defer src="/js/alpine.min.js"></script>
+  <script src="/js/main.js"></script>
+  
+</head>
+<body>
+<div id="app" 
+  x-data="{route: '', skus: [], slugs: {}, cart: [], cartTotal: 0, psku: {}}" 
+  x-init="init($data)">
+  
+  <header>
+    <a href="#home">
+      <img src="/assets/logo.svg"/>
+      <span>FlashCart</span>
+    </a>
+  </header>
+  
+  <main id="home" x-show="route=='home'">
+  
+    <section>
+      <h2>Quick and easy shopping cart template</h2>
+    </section>
+    
+    <section>
+      <template x-for="sku in skus">
+        <div class="sku-card">
+          <img x-bind:src="sku.image" />
+          <div>
+            <h3 x-text="sku.name" x-on:click="openProductPage(sku.slug)"></h3>
+            <p x-text="sku.description" x-on:click="openProductPage(sku.slug)"></p>
+            <div class="price">
+              <b>₹</b>
+              <span x-text="sku.price"></span>
+            </div>
+            <div class="cartcontrol">
+              <button x-on:click="addToCart(sku.slug, 1)" x-show="!sku.cart">
+                + Add
+              </button>
+              <div x-show="sku.cart">
+                <button x-on:click="addToCart(sku.slug, -1)">
+                  -
+                </button>
+                <span x-text="sku.cart"></span>
+                <button x-on:click="addToCart(sku.slug, 1)">
+                  +
+                </button>
+              </div>  
+            </div>
+          </div>  
+        </div>
+      </template>  
+    </section>
+    
+  </main>
+  
+  <main id="checkout" x-show="route=='checkout'">
+    <h2>Your Cart</h2>
+    <template x-for="i in cart">
+      <div class="sku-card checkout">
+        <div>
+          <h3 x-text="skus[i].name"></h3>
+          <p>
+            <b>₹</b>
+            <span x-text="skus[i].price"></span>
+            <span>/ unit</span> 
+          </p>
+          <div class="price">
+            <b>₹</b>
+            <span x-text="skus[i].price * skus[i].cart"></span>
+          </div>
+          <div class="cartcontrol">
+            <button x-on:click="addToCart(skus[i].slug, 1)" x-show="!skus[i].cart">
+              + Add
+            </button>
+            <div x-show="skus[i].cart">
+              <button x-on:click="addToCart(skus[i].slug, -1)">
+                -
+              </button>
+              <span x-text="skus[i].cart"></span>
+              <button x-on:click="addToCart(skus[i].slug, 1)">
+                +
+              </button>
+            </div>  
+          </div>
+        </div>
+      </div>  
+    </template>
+    <div class="sku-card checkout">
+      <div>
+        <h3>TOTAL</h3>
+        <p></p>
+        <div class="cartcontrol"></div>
+        <div class="price">
+          <b>₹</b>
+          <span x-text="cartTotal"></span>
+        </div>        
+      </div>  
+    </div>
+    
+    <div class="order-btn-container" x-show="cart.length>0">
+      <button class="solid-clickable" x-on:click="sendOrder()">Send Order</button>
+    </div>
+  </main>
+  
+  <main id="product" x-show="route=='product'">
+    <div class="sku-card full">
+      <img x-bind:src="psku.image" />
+      <div>
+        <h3 x-text="psku.name"></h3>
+        <p x-text="psku.description"></p>
+        <div class="price">
+          <b>₹</b>
+          <span x-text="psku.price"></span>
+        </div>
+        <div class="cartcontrol">
+          <button x-on:click="addToCart(psku.slug, 1)" x-show="!psku.cart">
+            + Add
+          </button>
+          <div x-show="psku.cart">
+            <button x-on:click="addToCart(psku.slug, -1)">
+              -
+            </button>
+            <span x-text="psku.cart"></span>
+            <button x-on:click="addToCart(psku.slug, 1)">
+              +
+            </button>
+          </div>  
+        </div>
+      </div>  
+    </div>    
+  </main>
+  
+  <div x-show="cart.length>0" class="checkout-prompt">
+    <svg stroke-width="2.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 6H22L19 16H6L3 6ZM3 6L2.25 3.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M11 19.5C11 20.3284 10.3284 21 9.5 21C8.67157 21 8 20.3284 8 19.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M17 19.5C17 20.3284 16.3284 21 15.5 21C14.6716 21 14 20.3284 14 19.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span x-text="cart.length"></span>
+    <a href="#checkout" class="solid-clickable">Place Order</a>
+  </div>
+    
+</div>
+</body>  
+</html>

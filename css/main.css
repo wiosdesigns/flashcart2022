@@ -1,0 +1,224 @@
+/* Fonts */
+@font-face {
+  font-family: custom_regular;
+  font-display: swap;
+  src: url(/assets/jost-regular.ttf);
+}
+
+@font-face {
+  font-family: custom_bold;
+  font-display: swap;
+  src: url(/assets/jost-bold.ttf);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box; 
+  font-family: custom_regular, sans-serif; 
+  margin: 0;
+}
+
+  
+:root {
+  --d1: #1d201d;
+  --l1: #ffffff;
+  --l2: #dee5e5;
+  --t1: #04a777;
+  --a1: #ef626c;
+      
+  --s1: clamp(4px, 0.36vw, 8px);
+  --s2: calc(var(--s1)*2);
+  --s3: calc(var(--s1)*3);
+  --s4: calc(var(--s1)*4);
+  --s5: calc(var(--s1)*5);
+  --s6: calc(var(--s1)*6);
+  --s8: calc(var(--s1)*8);
+  --s12: calc(var(--s1)*12);
+  --s16: calc(var(--s1)*16);
+  
+  --s32: calc(var(--s1)*32);
+    
+  --capped-full-width: 100%;
+}
+
+@media only screen and (min-width: 480px) {
+  :root {
+    --capped-full-width: 75vw;
+  }
+} 
+
+body {
+  text-align: center;
+  color: var(--d1);
+  background: var(--l1);
+  font-size: var(--s4);
+  letter-spacing: calc(0.125 * var(--s1));
+  padding-bottom: var(--s32);
+}
+
+header {
+  display: inline-block;
+  width: 100%;
+  max-width: var(--capped-full-width);
+  padding: var(--s4) var(--s2);
+  text-align: left;
+}
+
+header a {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  text-decoration: none;
+  font-size: var(--s6);
+  font-weight: bold;
+  color: var(--t1);
+  grid-gap: var(--s4);
+}
+header img {
+  width: var(--s8);
+  height: auto;
+}
+
+main {
+  display: inline-block;
+  max-width: var(--capped-full-width);
+  text-align: left;
+  width: 100%;
+}
+
+h2 {
+  padding: var(--s4) var(--s2);
+}
+
+#app {
+  display: block;
+  width: 100%;
+}
+
+.checkout-prompt {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--d1);
+  color: var(--l1);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-gap: var(--s2);
+  padding: var(--s4);
+  align-items: center;
+  text-align: left;
+}
+.checkout-prompt svg {
+  color: var(--t1);
+  height: var(--s6);
+  width: var(--s6);
+}
+
+.order-btn-container {
+  padding: var(--s2);
+}
+
+.order-btn-container button{
+  padding: var(--s2);
+  width: 100%;
+}
+
+.sku-card {
+  padding-bottom: var(--s8);
+  border-top: calc(0.5 * var(--s1)) solid var(--l1);
+}
+.sku-card>div {
+  padding: var(--s2);
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  grid-gap: 0 var(--s4);
+  grid-template-areas: 'h3 price cartcontrol' 'p price cartcontrol';
+  align-items: center;
+}
+.sku-card.checkout {
+  padding-bottom: var(--s2);
+}
+.sku-card.checkout>div {
+  grid-template-areas: 'h3 cartcontrol price' 'p cartcontrol price';
+  padding-top: var(--s4);
+}
+
+.sku-card.full {
+  border-top: none;
+}
+.sku-card.full>div {
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 'h3 cartcontrol' 'price cartcontrol' 'p p'; 
+}
+
+.sku-card>img{
+  width: 100%;
+  height: calc(64 * var(--s1));
+  object-fit: cover;
+}
+
+.sku-card h3 {
+  color: var(--t1);
+  font-size: var(--s5);
+  grid-area: h3;
+}
+.sku-card p {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  grid-area: p;
+}
+.sku-card.full p {
+  padding-top: var(--s2);
+  text-overflow: initial;
+  white-space: initial;
+  overflow: initial;
+}
+.sku-card .cartcontrol {
+  grid-area: cartcontrol;
+}
+.sku-card .price {
+  grid-area: price;
+}
+.sku-card .cartcontrol>button, .sku-card .cartcontrol>a {
+  padding: var(--s1) var(--s4);
+  background: var(--t1);
+  outline: none;
+  border: none;
+  color: var(--l1);
+  font-weight: 700;
+  font-size: var(--s4);
+  border-radius: var(--s6);
+  text-decoration: none;
+}
+.sku-card .cartcontrol>div {
+  background: var(--t1);
+  border-radius: var(--s1);
+  color: var(--l1);
+  font-size: var(--s4);
+  font-weight: 700;
+  border-radius: var(--s6);
+}
+.sku-card .cartcontrol>div>button {
+  background: none;
+  border: none;
+  outline: none;
+  padding: var(--s1) var(--s4);
+  color: var(--l1);
+  font-size: var(--s4);
+  font-weight: 700;
+}
+
+.solid-clickable {
+  display: inline-block;
+  background: var(--t1);
+  border: none;
+  outline: none;
+  color: var(--l1);
+  padding: var(--s1) var(--s4);
+  font-size: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: var(--s16);
+}
+
